@@ -1,0 +1,21 @@
+img {
+    image-rendering: auto;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+  }
+
+ .jumbotron {
+    text-align: center;
+    margin-top: 5%;
+    background-color: lightgreen;
+    color: white;
+    font-weight: bold;
+    opacity: 0.9;
+ } 
+
+.start-button {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    margin-top: 50%;
+}
