@@ -78,9 +78,10 @@ var TriviaGame = function () {
     var questionNum = 0;
     var question = "";
     var answers = [];
-    var answerSelected = null;
+    var answerSelected = "";
     var correctAns = null;
     var theAnswerIs = "";
+    var answerResult = null;
     var qnum = 0;
     var result = null;
 
@@ -96,6 +97,7 @@ var TriviaGame = function () {
         $(".answer-button").hide();
         $(".askQuestion").hide();
         $(".questionNumber").hide();
+        $(".checkAnswerContainer").hide();
 
         // console.log("Correct Answers: " + this.numCorrectAns);
         // console.log("Wrong Answers: " + this.numWrongAns);
@@ -120,15 +122,15 @@ var TriviaGame = function () {
         $(".answer-button").show();
         $(".askQuestion").show();
         $(".questionNumber").show();
+        $(".checkAnswerContainer").hide();
         $("#button-row").empty();
-
 
         // *** the load variables with the details from the current question ***
         this.questionNum = questionList[qnum].questionNumber;
         this.question = questionList[qnum].question;
         this.answers = questionList[qnum].answers;
-        this.correctAns = parseInt(questionList[qnum].correctAns);
-        this.theAnswerIs = questionList[qnum].answers[this.correctAns];
+        // this.correctAns = parseInt(questionList[qnum].correctAns);
+        // this.theAnswerIs = questionList[qnum].answers[this.correctAns];
 
         // *** Display the question to the player ***
         $(".askQuestion").html(this.question);
@@ -143,49 +145,68 @@ var TriviaGame = function () {
         }
 
         $(".answer-button").on("click", function () {
-            console.log("clicked the button");
-            console.log(self.answers.length);
-            console.log($(this));
+            // console.log("clicked the button");
+            // console.log(self.answers.length);
+            // console.log($(this));
 
             answerSelected = $(this).data("answer").toString();
-            
-            console.log ("Answer Selected: "+answerSelected+ typeof answerSelected);
-            console.log ("correct Answer: "+self.theAnswerIs+ typeof self.theAnswerIs);
-            
 
-            if (self.answerSelected === self.theAnswerIs) {
-                $("#answerMessage").text("CONGRATULATIONS, that is the correct answer!");
-                result = true;
-                console.log("Result: "+result);
-                numCorrectAns++;
-            }
-            else {
-                $("#answerMessage").text("I'm sorry that is NOT the correct answer!");
-                result = false;
-                console.log("Result: "+result);
-                numWrongAns++
-            }
+            //console.log ("Answer Selected: "+answerSelected+ typeof answerSelected);
+            // console.log ("correct Answer: "+self.theAnswerIs+ typeof self.theAnswerIs);
+
+            self.displayAnswer(qnum, questionArr, answerSelected);
         })
-        qnum++
-        console.log("New Question Number: " + qnum);
-        //this.displayAnswer(result);
     }
 
-    this.displayAnswer = function (answerResult) {
-        this.answerResult = answerResult;
-        console.log("displayAnswer function initiated");
-        $('<div class="container showAnswer"></div>');
-        if (this.answerResult === true) {
-            $(".showAnswer").html("Good Job, the answer is correct!!");
-            console.log("Good Job");
+    //Create a function to hide buttons and provide your answer result
+    this.displayAnswer = function (qnum, questionList) {
+
+        var self = this;
+
+        this.correctAns = parseInt(questionList[qnum].correctAns);
+        this.theAnswerIs = questionList[qnum].answers[this.correctAns];
+        this.extraInfo = questionList[qnum].extraInfo;
+        this.yourAnswer = answerSelected;
+
+        console.log(this.yourAnswer+" "+typeof this.yourAnswer);
+        console.log(this.theAnswerIs+" "+typeof this.theAnswerIs);
+
+        if (this.yourAnswer === this.theAnswerIs) {
+            $("#answerMessage").html("<p>CONGRATULATIONS, that is the correct answer!</p>");
+            $("#answerGif").html("<img src='../images/Celebrate.gif'>");
+            result = true;
+            console.log("Result: " + result);
+            numCorrectAns++;
         }
         else {
-            $(".showAnswer").html("I'm afraid that answer is incorrect!!");
-            console.log("Wawaaaahhh");
-
+            $("#answerMessage").text("I'm sorry that is NOT the correct answer!");
+            result = false;
+            console.log("Result: " + result);
+            numWrongAns++
         }
-        }
 
+        console.log("Answer Result inside displayAnswer: " + result);
+
+        $(".answer-button").hide();
+        $(".checkAnswerContainer").show();
+
+        // $("#answerInfo").text(this.extraInfo);
+        $("#answerInfo").text("Extra Info PlaceHolder");
+
+        qnum++
+        console.log("New Question Number: " + qnum);
+
+        if (qnum <= questionList.length) {
+            self.askAQuestion(qnum, questionArr);
+            console.log ("Questions Answered: "+qnum+1);
+            console.log ("Total Questions: "+questionList.length);
+        }
+        else {
+            console.log ("Questions Answered: "+qnum+1);
+            console.log ("Total Questions: "+questionList.length);
+            // self.endGame()
+        }
+    }
 }
 
 $(document).ready(function () {

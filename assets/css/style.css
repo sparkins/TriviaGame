@@ -21,13 +21,6 @@ body {
     margin-top: 5%;
 }
 
-.answer-button {
-    background-color: blue;
-    color: white;
-    font-weight: bold;
-    margin: 5% !important;
-}
-
 .question-row {
     vertical-align: middle;
     color: white;
@@ -51,10 +44,6 @@ body {
     margin-right: 3%;
     }
 
-.button-row {
-
-}
-
 .answer-button {
     background-color: blue;
     color: white;
@@ -62,6 +51,24 @@ body {
     margin: 5% !important;
 }
 
-#ans1 {
+.checkAnswerContainer {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    background-color: beige;
+    margin-left: 3%;
+    margin-right: 3%;
 
+}
+
+#answerMessage {
+
+}
+
+#answerInfo {
+    
+}
+
+#answerGif {
+    
 }
