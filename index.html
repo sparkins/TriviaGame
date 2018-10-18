@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,47 +13,81 @@
 
     <title>Trivia Game</title>
 
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 </head>
 
 
 <!-- Display background image -->
-<body style="background: url(assets/images/soccerPitch.png);background-repeat: no-repeat;background-size: 99%">
+<!-- <body style="background: url(assets/images/soccerimage.png);background-repeat: no-repeat;background-size: 60%;"> -->
+
+<body>
 
     <!-- Create page title -->
-    <div class="container">
+    <div class="container imageContainer">
         <div class="jumbotron">
             <h1>World Cup Trivia Game</h1>
         </div>
         <div class="row">
-            <div class="col-md-4"></div>   
+            <div class="col-md-1"></div>
+            <div class="col-md-2 question-row questionNumber">Question: </div>
+            <div class="col-md-7 question-row askQuestion"></div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4" id="button-row"></div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-block btn-lg btn-primary answer-button" id="ans3"></button>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
             <div class="col-md-4">
                 <button type="button" class="btn btn-block btn-lg start-button">Start Quiz</button>
             </div>
-            <div class="col-md-4"></div>   
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <div class="container checkAnswerContainer">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6" id="answerMessage"></div>
+            <div class="col-md-2"></div>
+       </div>
+       <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6" id="answerInfo"></div>
+            <div class="col-md-2"></div>
+        </div>
+       <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6" id="answerGif"></div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 
-
-        <!-- Create start button -->
-
     <!-- Page now displays first question along with the trivia title and timer -->
 
-        <!-- Display timer -->
+    <!-- Display timer -->
 
-        <!-- Display question -->
+    <!-- Display question -->
 
-        <!-- Display success or incorrect answer gif -->
+    <!-- Display success or incorrect answer gif -->
 
     <!-- Display final results page -->
 
-        <!-- Display message that the quiz is complete -->
+    <!-- Display message that the quiz is complete -->
 
-        <!-- Display stats, i.e. correct, incorrect and unanswered questions -->
+    <!-- Display stats, i.e. correct, incorrect and unanswered questions -->
 
-        <!-- Display a button to start the quiz again -->
+    <!-- Display a button to start the quiz again -->
 
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -61,7 +95,7 @@
 
     <!-- Adds a link to the JavaScript file.         -->
     <script src="assets/javascript/app.js"></script>
-    
+
 </body>
 
 </html>

@@ -1,14 +1,15 @@
-img {
-    image-rendering: auto;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
+body {
+    background-image: url(../images/soccerimage.png);
+    background-repeat: no-repeat;
+    background-size: 65%;
+    background-position: center;
   }
 
  .jumbotron {
     text-align: center;
-    margin-top: 5%;
-    background-color: lightgreen;
-    color: white;
+    /* margin-top: 5%; */
+    background-color: inherit;
+    color: black;
     font-weight: bold;
     opacity: 0.9;
  } 
@@ -17,5 +18,50 @@ img {
     background-color: blue;
     color: white;
     font-weight: bold;
-    margin-top: 50%;
+    margin-top: 5%;
+}
+
+.answer-button {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    margin: 5% !important;
+}
+
+.question-row {
+    vertical-align: middle;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    border-bottom-color: black;
+    border-style: solid;
+    border-width: 1px;
+    background-color: rgb(17, 71, 17);
+    opacity: 0.9;
+    margin-bottom: 3%;
+}
+
+.questionNumber {
+    text-align: center;
+    margin-left: 3%;
+    }
+
+.askQuestion {
+    padding-left: 5%;
+    margin-right: 3%;
+    }
+
+.button-row {
+
+}
+
+.answer-button {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    margin: 5% !important;
+}
+
+#ans1 {
+
 }
