@@ -79,7 +79,8 @@ var TriviaGame = function () {
     var question = "";
     var answers = [];
     var answerSelected = null;
-    var correctAns = "";
+    var correctAns = null;
+    var theAnswerIs = "";
     var qnum = 0;
     var result = null;
 
@@ -119,12 +120,15 @@ var TriviaGame = function () {
         $(".answer-button").show();
         $(".askQuestion").show();
         $(".questionNumber").show();
+        $("#button-row").empty();
+
 
         // *** the load variables with the details from the current question ***
         this.questionNum = questionList[qnum].questionNumber;
         this.question = questionList[qnum].question;
         this.answers = questionList[qnum].answers;
-        this.correctAns = questionList[qnum].correctAns;
+        this.correctAns = parseInt(questionList[qnum].correctAns);
+        this.theAnswerIs = questionList[qnum].answers[this.correctAns];
 
         // *** Display the question to the player ***
         $(".askQuestion").html(this.question);
@@ -143,41 +147,28 @@ var TriviaGame = function () {
             console.log(self.answers.length);
             console.log($(this));
 
+            answerSelected = $(this).data("answer").toString();
+            
+            console.log ("Answer Selected: "+answerSelected+ typeof answerSelected);
+            console.log ("correct Answer: "+self.theAnswerIs+ typeof self.theAnswerIs);
+            
 
-            self.buttonClicked(answerSelected);
-
-            if (self.answerSelected === self.correctAns) {
-                $("<h2>").text("CONGRATULATIONS, that is the correct answer!");
-                console.log("woohoo");
+            if (self.answerSelected === self.theAnswerIs) {
+                $("#answerMessage").text("CONGRATULATIONS, that is the correct answer!");
                 result = true;
+                console.log("Result: "+result);
                 numCorrectAns++;
             }
             else {
-                $("<h2>").text("I'm sorry that is NOT the correct answer!");
-                console.log("foobar");
+                $("#answerMessage").text("I'm sorry that is NOT the correct answer!");
                 result = false;
+                console.log("Result: "+result);
                 numWrongAns++
             }
         })
         qnum++
         console.log("New Question Number: " + qnum);
-        this.displayAnswer(result);
-    }
-    this.buttonClicked = function () {
-        var self = this;
-        for (var answ = 0; answ < self.answers.length; answ++) {
-            console.log("answ: "+answ);
-            // console.log(this)
-            // console.log($(this));
-            var buttonText = $(this).data("answer");
-            console.log ("Button Text: "+buttonText);
-            console.log($(this).data("answer"));
-            if ($(this).data("answer")) {
-                answerSelected = answ;
-                console.log("You selected: " + answerSelected + "Answer: " + self.correctAns);
-            return (answerSelected);
-            }
-        }
+        //this.displayAnswer(result);
     }
 
     this.displayAnswer = function (answerResult) {
