@@ -131,21 +131,18 @@ var TriviaGame = function () {
 
         // *** Dynamically create and display the answers in the form of buttons *** 
         for (var numAnsw = 0; numAnsw < this.answers.length; numAnsw++) {
-            // $("#ans" + j).html(this.answers[numAnsw]);
             var ansBtn = $("<button>");
-            // Adding a class
             ansBtn.addClass("btn btn-block btn-md btn-primary answer-button");
-            // Added a data-attribute
             ansBtn.attr("data-answer", this.answers[numAnsw]);
-            // Provided the initial button text
             ansBtn.text(this.answers[numAnsw]);
-            // Added the button to the HTML
             $("#button-row").append(ansBtn);
         }
 
         $(".answer-button").on("click", function () {
             console.log("clicked the button");
             console.log(self.answers.length);
+            console.log($(this));
+
 
             self.buttonClicked(answerSelected);
 
@@ -169,13 +166,16 @@ var TriviaGame = function () {
     this.buttonClicked = function () {
         var self = this;
         for (var answ = 0; answ < self.answers.length; answ++) {
-            console.log(this)
-            console.log($(this));
-            console.log($(this).is('#ans' + answ));
-            if ($(this).is('#ans' + answ)) {
+            console.log("answ: "+answ);
+            // console.log(this)
+            // console.log($(this));
+            var buttonText = $(this).data("answer");
+            console.log ("Button Text: "+buttonText);
+            console.log($(this).data("answer"));
+            if ($(this).data("answer")) {
                 answerSelected = answ;
                 console.log("You selected: " + answerSelected + "Answer: " + self.correctAns);
-                return (answerSelected);
+            return (answerSelected);
             }
         }
     }
