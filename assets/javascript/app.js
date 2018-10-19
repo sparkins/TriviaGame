@@ -248,7 +248,7 @@ var TriviaGame = function () {
         var self = this;
         qnum++
         console.log("New Question Number: " + qnum);
-        self.askAQuestion(qnum, this.questionList)
+        self.askAQuestion(qnum, questionArr)
         // console.log(typeof qnum);
         // console.log(typeof questionList.length);
         // if (qnum <= this.questionList.length) {
