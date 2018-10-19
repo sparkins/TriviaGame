@@ -84,6 +84,47 @@ var TriviaGame = function () {
     var answerResult = null;
     var qnum = 0;
     var result = null;
+    var intervalId;
+    var clockRunning = false;
+    var gameTimer = {
+        time: 0,
+
+        reset: function () {
+            gameTimer.time = 0;
+            $("#timer-display").text("2:00");
+        },
+        start: function () {
+            if (!clockRunning) {
+                intervalId = setInterval(gameTimer.countDown, 1000);
+                clockRunning = true;
+            }
+        },
+        stop: function () {
+            clearInterval(intervalId);
+            clockRunning = false;
+        },
+        countDown: function () {
+            gameTimer.time--;
+            var converted = gameTimer.timeConverter(gameTimer.time);
+            $("#timer-display").text(converted);
+        },
+        timeConverter: function (t) {
+            var minutes = Math.floor(t / 60);
+            var seconds = t - (minutes * 60);
+
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            if (minutes === 0) {
+                minutes = "00";
+            }
+            else if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            return minutes + ":" + seconds;
+        }
+    }
+
 
     // *** Function to present the start quiz screen and reset results ***
     this.startGame = function () {
@@ -98,6 +139,8 @@ var TriviaGame = function () {
         $(".askQuestion").hide();
         $(".questionNumber").hide();
         $(".checkAnswerContainer").hide();
+
+        gameTimer.reset();
 
         // console.log("Correct Answers: " + this.numCorrectAns);
         // console.log("Wrong Answers: " + this.numWrongAns);
@@ -124,6 +167,8 @@ var TriviaGame = function () {
         $(".questionNumber").show();
         $(".checkAnswerContainer").hide();
         $("#button-row").empty();
+
+        gameTimer.start();
 
         // *** the load variables with the details from the current question ***
         this.questionNum = questionList[qnum].questionNumber;
@@ -163,17 +208,21 @@ var TriviaGame = function () {
 
         var self = this;
 
+        gameTimer.stop();
+        setTimeout(self.nextQuestion(qnum, questionArr), 1000 * 3);
+
+
         this.correctAns = parseInt(questionList[qnum].correctAns);
         this.theAnswerIs = questionList[qnum].answers[this.correctAns];
         this.extraInfo = questionList[qnum].extraInfo;
         this.yourAnswer = answerSelected;
 
-        console.log(this.yourAnswer+" "+typeof this.yourAnswer);
-        console.log(this.theAnswerIs+" "+typeof this.theAnswerIs);
+        console.log(this.yourAnswer + " " + typeof this.yourAnswer);
+        console.log(this.theAnswerIs + " " + typeof this.theAnswerIs);
 
         if (this.yourAnswer === this.theAnswerIs) {
             $("#answerMessage").html("<p>CONGRATULATIONS, that is the correct answer!</p>");
-            $("#answerGif").html("<img src='../images/Celebrate.gif'>");
+            $("#answerGif").html("<img src='../TriviaGame/assets/images/Celebrate.gif'>");
             result = true;
             console.log("Result: " + result);
             numCorrectAns++;
@@ -192,21 +241,34 @@ var TriviaGame = function () {
 
         // $("#answerInfo").text(this.extraInfo);
         $("#answerInfo").text("Extra Info PlaceHolder");
+    }
 
+    this.nextQuestion = function (qnum, questionList) {
+
+        var self = this;
         qnum++
         console.log("New Question Number: " + qnum);
-
-        if (qnum <= questionList.length) {
-            self.askAQuestion(qnum, questionArr);
-            console.log ("Questions Answered: "+qnum+1);
-            console.log ("Total Questions: "+questionList.length);
-        }
-        else {
-            console.log ("Questions Answered: "+qnum+1);
-            console.log ("Total Questions: "+questionList.length);
-            // self.endGame()
-        }
+        self.askAQuestion(qnum, this.questionList)
+        // console.log(typeof qnum);
+        // console.log(typeof questionList.length);
+        // if (qnum <= this.questionList.length) {
+        //     self.askAQuestion(qnum, this.questionList);
+        //     console.log ("Questions Answered: "+qnum+1);
+        //     console.log ("Total Questions: "+this.questionList.length);
+        // }
+        // else {
+        //     console.log ("Questions Answered: "+qnum+1);
+        //     console.log ("Total Questions: "+this.questionList.length);
+        //     self.endGame()
+        // }
     }
+    this.endGame = function () {
+        $(".start-button").hide();
+        $(".answer-button").hide();
+        $(".askQuestion").hide();
+        $(".questionNumber").hide();
+        $(".checkAnswerContainer").hide();
+    }    
 }
 
 $(document).ready(function () {

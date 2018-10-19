@@ -27,7 +27,7 @@
     <!-- Create page title -->
     <div class="container imageContainer">
         <div class="jumbotron">
-            <h1>World Cup Trivia Game</h1>
+            <div>World Cup Trivia Game</div>
         </div>
         <div class="row">
             <div class="col-md-1"></div>
@@ -52,17 +52,31 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8" id="answerMessage"></div>
                 <div class="col-md-2"></div>
-        </div>
-        <div class="row">
+            </div>
+            <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8" id="answerInfo"></div>
                 <div class="col-md-2"></div>
             </div>
-        <div class="row">
+            <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8" id="answerGif"></div>
                 <div class="col-md-2"></div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card mb-3" id="timer-card">
+                    <div class="card-header" id="timer-title">Time Remaining: 
+                        <span class="card-header" id="timer-display"></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text" id="timer-text">You have 2 minutes to answer 12 questions about the
+                            World Cup.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10"></div>
         </div>
     </div>
     <!-- Page now displays first question along with the trivia title and timer -->

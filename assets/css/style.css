@@ -7,29 +7,51 @@ body {
 
  .jumbotron {
     text-align: center;
-    /* margin-top: 5%; */
     background-color: inherit;
     color: black;
     font-weight: bold;
+    font-size: 42px !important;
     opacity: 0.9;
  } 
+
+#timer-text {
+     font-size: 10px !important;
+ }
+
+#timer-title {
+    font-size: 12px;
+    font-weight: bold;
+
+}
+
+ #timer-display {
+     font-size: 12px;
+ }
+
+#timer-card {
+    background-color: aquamarine;
+    position: fixed;
+    bottom: 40%;
+    left: 20%
+    /* float: left; */
+}
 
 .start-button {
     background-color: blue;
     color: white;
     font-weight: bold;
-    margin-top: 5%;
+    margin-top: 25%;
 }
 
 .question-row {
     vertical-align: middle;
-    color: white;
+    color: black;
     font-weight: bold;
     font-size: 24px;
     border-bottom-color: black;
     border-style: solid;
     border-width: 1px;
-    background-color: rgb(17, 71, 17);
+    background-color: aquamarine;
     opacity: 0.9;
     margin-bottom: 3%;
 }
@@ -58,7 +80,9 @@ body {
     background-color: beige;
     margin-left: 3%;
     margin-right: 3%;
-
+    /* display: flex; */
+    height: auto;
+    overflow: auto;
 }
 
 #answerMessage {
@@ -70,5 +94,8 @@ body {
 }
 
 #answerGif {
-    
+    background-image: url(../images/Celebrate.Gif);
+    background-repeat: no-repeat;
+    background-size: 65%;
+    background-position: center;
 }
