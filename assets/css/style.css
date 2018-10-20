@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    background-image: url(../images/soccerImage.png);
+    background-image: url(../images/mySoccerImage.png);
     background-repeat: no-repeat;
     background-position: center;
     display: flex;
