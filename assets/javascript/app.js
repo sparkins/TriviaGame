@@ -92,6 +92,7 @@ var TriviaGame = function () {
     // *** Declaration of global variables ***
     var numCorrectAns = 0;
     var numWrongAns = 0;
+    var numTimesUp = 0;
     var answerSelected = "";
     var qnum = 0;
     var result = null;
@@ -103,8 +104,8 @@ var TriviaGame = function () {
         time: 0,
 
         reset: function () {
-            gameTimer.time = 60;
-            $("#timer-display").text("1:00");
+            gameTimer.time = 10;
+            $("#timer-display").text("00:10");
         },
         start: function () {
             if (!clockRunning) {
@@ -120,7 +121,7 @@ var TriviaGame = function () {
             gameTimer.time--;
             var converted = gameTimer.timeConverter(gameTimer.time);
             $("#timer-display").text(converted);
-            if (gameTimer.time < 10 && gameTimer.time > 0) {
+            if (gameTimer.time < 3 && gameTimer.time > 0) {
                 $("#timer-display").css('color', 'Red').text(converted);    
             }
             if (gameTimer.time === 0) {
@@ -129,7 +130,9 @@ var TriviaGame = function () {
                 gameTimer.stop();
 
                 // *** End the game if the time runs out ***
-                self.endGame();
+                // self.endGame();
+                answerSelected = "Times Up";
+                self.displayAnswer(questionArr, answerSelected);
             }
         },
         timeConverter: function (t) {
@@ -196,6 +199,7 @@ var TriviaGame = function () {
         $("#button-row").empty();
 
         // *** Start the timer when each question is presented to the user ***
+        gameTimer.reset();
         gameTimer.start();
 
         // *** load variables with the details for the current question ***
@@ -222,12 +226,12 @@ var TriviaGame = function () {
             answerSelected = $(this).data("answer").toString();
 
         // *** Invoke the function to display whether the user was correct or not ***
-            self.displayAnswer(qnum, questionArr, answerSelected);
+            self.displayAnswer(questionArr, answerSelected);
         })
     }
 
     // ***Create a function to hide the answer buttons and provide your answer result ***
-    this.displayAnswer = function (qnum, questionList, answerSelected) {
+    this.displayAnswer = function (questionList, answerSelected) {
 
         var self = this;
 
@@ -250,10 +254,15 @@ var TriviaGame = function () {
         // *** Also increment stats for later ***
         if (yourAnswer === theAnswerIs) {
             $("#answerMessage").html("<p>CONGRATULATIONS, that is the correct answer!</p>");
-            $("#answerGif").html("<img src='../TriviaGame/assets/images/Celebrate.gif'>");
+            // $("#answerGif").html("<img src='../TriviaGame/assets/images/Celebrate.gif'>");
             result = true;
             // console.log("Result: " + result);
             numCorrectAns++;
+        }
+        else if (yourAnswer === "Times Up") {
+            $("#answerMessage").text("I'm sorry you didn't answer the question in time!");
+            result = false;
+            numTimesUp++
         }
         else {
             $("#answerMessage").text("I'm sorry that is NOT the correct answer!");
@@ -270,12 +279,12 @@ var TriviaGame = function () {
 
         // *** invoke the 5 second timer, before taking the user to the next question ***
         var resultFiveSecondTimer = setTimeout(function() {
-            self.nextQuestion (qnum, questionArr);    
+            self.nextQuestion (questionArr);    
         }, 3000); 
     }
 
     // *** Function to set up the next question, or end game if all questions answered ***
-    this.nextQuestion = function (qnum, questionList) {
+    this.nextQuestion = function (questionList) {
 
         var self = this;
         // *** Increment the question number
@@ -309,6 +318,7 @@ var TriviaGame = function () {
 
         self.numCorrectAns = numCorrectAns;
         self.numWrongAns = numWrongAns;
+        self.numTimesUp = numTimesUp;
         var totalAnswered = self.numCorrectAns + self.numWrongAns
         self.percentCorrect = parseInt((self.numCorrectAns/totalAnswered)*100)
 
