@@ -27,7 +27,7 @@
     <!-- Create page title -->
     <div class="container imageContainer">
         <div class="jumbotron">
-            <div>World Cup Trivia Game</div>
+            <div id="worldCupTitle">World Cup Trivia Game</div>
         </div>
         <div class="row">
             <div class="col-md-1"></div>
@@ -40,7 +40,7 @@
             <div class="col-md-4" id="button-row"></div>
             <div class="col-md-4"></div>
         </div>
-        <div class="row">
+        <div class="row" id="btn-row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <button type="button" class="btn btn-block btn-lg start-button">Start Quiz</button>
@@ -58,38 +58,44 @@
                         <p id="answerInfo"></p>
                     </div>
                     <div class="card-footer answerCounter">
-                        <small class="text-muted">Next question in 5 seconds</small>
+                        <small class="text-muted">Next question in 3 seconds</small>
                     </div>
                     <div class="col-md-3"></div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
                 <div class="card" id="final-stats-card">
-                    <div class="card-header" id="stats-header">Game Over !!!</div>
-                        <h5 class="card-body" id="QuestionsAnswers">Correct Answers: </h5>
-                        <h5 class="card-body" id="correctAnswers">Correct Answers: </h5>
-                        <h5 class="card-body" id="percentCorrect">Percent Correct: </h5>
-                    </div>
-                    <div class="col-md-3"></div>
+                    <div class="card-header" id="stats-header">Final Game Statistics</div>
+                    <h6 class="list-group-item" id="QuestionsAnswers">Questions Answers: </h6>
+                    <h6 class="list-group-item" id="correctAnswers">Total Correct: </h6>
+                    <h6 class="list-group-item" id="percentCorrect">Percent Correct: </h6>
                 </div>
+                <div class="col-md-8"></div>
             </div>
         </div>
-        <div class="row" id="result-row">
+        <div class="row fixed-top" id="timer-row">
             <div class="col-md-2">
-                <div class="card mb-3" id="timer-card">
+                <div class="card mb-2" id="timer-card">
                     <div class="card-header" id="timer-title">Time Remaining:
                         <span class="card-header" id="timer-display"></span>
                     </div>
                     <div class="card-body">
-                        <div class="card-text" id="timer-text">You have 2 minutes to answer 12 questions about the
+                        <div class="card-text" id="timer-text">You have 1 minutes to answer 12 questions about the
                             World Cup.</div>
                     </div>
                 </div>
             </div>
             <div class="col-md-10"></div>
+        </div>
+        <div class="row" id="restart-row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-block btn-lg restart-button">Restart Quiz</button>
+            </div>
+            <div class="col-md-4"></div>
         </div>
     </div>
 

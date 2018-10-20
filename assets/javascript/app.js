@@ -29,76 +29,70 @@ var TriviaGame = function () {
             question: "Which nation holds the record for the most World Cups?",
             answers: ["Brazil", "Italy", "Germany", "France"],
             correctAns: 0,
-            extraInfo: "Did you know?: "
+            extraInfo: "Brazil has won the World Cup a record 5 times, while losing in the final twice.  They last won it in 2002."
         },
         {
             questionNumber: 5,
             question: "Who is the only player to score a hat-trick in a World Cup final?",
             answers: ["Jurgen Klinsmann", "Pele", "Geoff Hurst", "Paolo Rossi"],
             correctAns: 2,
-            extraInfo: "Did you know?: "
+            extraInfo: "Geoff Hurst scored a hat-trick in the 1966 final, as England came out on top against Germany 4-2 after extra-time."
         },
         {
             questionNumber: 6,
             question: "Which of these teams has NOT won the World Cup on home soil?",
             answers: ["Brazil", "Italy", "England", "Uruguay"],
             correctAns: 0,
-            extraInfo: "Did you know?: "
+            extraInfo: "Surprisingly, despite winning the World Cup more than any other nation, they are yet to do it in front of their home fans."
         },
         {
             questionNumber: 7,
             question: "Which nation has played in every world cup?",
             answers: ["England", "Brazil", "Argentina", "Italy"],
             correctAns: 1,
-            extraInfo: "Did you know?: "
+            extraInfo: "It's Brazil.  21 out of 21, not bad!!!  Germany are 2nd and have played in 19, although they have made the last 17 straight."
         },
         {
             questionNumber: 8,
             question: "Which team scored 27 goals in one World Cup?",
             answers: ["Argentina", "Germany", "Brazil", "Hungary"],
             correctAns: 3,
-            extraInfo: "Did you know?: "
+            extraInfo: "Hungary netted a staggering 27 goals in Switzerland in 1954, however they came up short in the final losing to West Germany."
         },
         {
             questionNumber: 9,
-            question: "Who is this pictured to the right?",
-            answers: ["", "", "", ""],
-            correctAns: 0,
-            extraInfo: "Did you know?: "
+            question: "Which team once went 559 minutes without conceding a goal in a world cup game?",
+            answers: ["Germany", "Switzerland", "Italy", "Argentina"],
+            correctAns: 1,
+            extraInfo: "Between the 2006 and 2010 world cups, Switzerland went almost 10 hours without conceding a goal. They went out on penalties to the Ukraine in 2006 after a 0-0 draw."
         },
         {
             questionNumber: 10,
             question: "Which team has scored the fastest world Cup goal?",
             answers: ["England", "Brazil", "Netherlands", "Turkey"],
             correctAns: 3,
-            extraInfo: "Did you know?: "
+            extraInfo: "Hakan Sukur of Turkey scored after just 10.8 seconds against South Korea during the 3rd place play-off, in 2002."
         },
         {
             questionNumber: 11,
-            question: "?",
-            answers: ["", "", "", ""],
-            correctAns: 0,
-            extraInfo: "Did you know?: "
+            question: "Which nation has won the most Women's World Cups?",
+            answers: ["Germany", "Japan", "USA", "Brazil"],
+            correctAns: 2,
+            extraInfo: "So far there have been 7 FIFA Women's World Cups and 4 different winners.  USA lead the way with 3 triumphs, Germany 2 and 1 each for Norway and Japan."
         },
         {
             questionNumber: 12,
-            question: "This is Question 12?",
-            answers: ["A", "B", "C", "D"],
+            question: "Which woman has scored more World Cup goals than any one else?",
+            answers: ["Marta", "Abby Wambach", "Birgit Prinz", "Sun Wen"],
             correctAns: 0,
-            extraInfo: "Did you know?: "
+            extraInfo: "Marta has scored an impressive 15 goals across 4 different world cups for Brazil.  One more than Prinz of Germany, who played in 5 World Cups from 1995 to 2011."
         }
     ]
 
     // *** Declaration of global variables ***
     var numCorrectAns = 0;
     var numWrongAns = 0;
-    var questionNum = 0;
-    var question = "";
-    var answers = [];
     var answerSelected = "";
-    var correctAns = null;
-    var theAnswerIs = "";
-    var answerResult = null;
     var qnum = 0;
     var result = null;
 
@@ -131,11 +125,10 @@ var TriviaGame = function () {
             }
             if (gameTimer.time === 0) {
 
-                //  ...run the stop function.
+                //*** Stop the timer if it gets to zero ***
                 gameTimer.stop();
 
-                //  Alert the user that time is up.
-                alert("Time Up!");
+                // *** End the game if the time runs out ***
                 self.endGame();
             }
         },
@@ -165,7 +158,7 @@ var TriviaGame = function () {
         this.numCorrectAns = 0;
         this.numWrongAns = 0;
         this.totalAns = 0;
-        this.percentCorrect = (this.correctAns / this.totalAns) * 100;
+        this.percentCorrect = 0;
 
         // *** Configure which elements should appear on the opening screen ***
         $(".answer-button").hide();
@@ -174,6 +167,9 @@ var TriviaGame = function () {
         $(".checkAnswerContainer").hide();
         $("#question-answer-card").hide();
         $("#final-stats-card").hide();
+        $(".restart-button").hide();
+        $(".start-button").show();
+
 
         // *** Reset the game timer ***
         gameTimer.reset();
@@ -203,22 +199,20 @@ var TriviaGame = function () {
         gameTimer.start();
 
         // *** load variables with the details for the current question ***
-        this.questionNum = questionList[qnum].questionNumber;
-        this.question = questionList[qnum].question;
-        this.answers = questionList[qnum].answers;
-        // this.correctAns = parseInt(questionList[qnum].correctAns);
-        // this.theAnswerIs = questionList[qnum].answers[this.correctAns];
+        var questionNum = questionList[qnum].questionNumber;
+        var question = questionList[qnum].question;
+        var answers = questionList[qnum].answers;
 
         // *** Display the question to the player ***
-        $(".askQuestion").html(this.question);
-        $(".questionNumber").text("Question: "+this.questionNum);
+        $(".askQuestion").html(question);
+        $(".questionNumber").text("Question: "+questionNum);
 
         // *** Dynamically create and display the answers in the form of buttons *** 
-        for (var numAnsw = 0; numAnsw < this.answers.length; numAnsw++) {
+        for (var numAnsw = 0; numAnsw < answers.length; numAnsw++) {
             var ansBtn = $("<button>");
             ansBtn.addClass("btn btn-block btn-md btn-primary answer-button");
-            ansBtn.attr("data-answer", this.answers[numAnsw]);
-            ansBtn.text(this.answers[numAnsw]);
+            ansBtn.attr("data-answer", answers[numAnsw]);
+            ansBtn.text(answers[numAnsw]);
             $("#button-row").append(ansBtn);
         }
 
@@ -236,7 +230,7 @@ var TriviaGame = function () {
     this.displayAnswer = function (qnum, questionList, answerSelected) {
 
         var self = this;
-        console.log("displayAnswer this: "+this);
+
         // *** Pause the timer, while we present the answer to the user ***
         gameTimer.stop();
 
@@ -247,24 +241,24 @@ var TriviaGame = function () {
         $("#question-answer-card").show();
 
         // *** assign information to the variables for displaying on the screen ***
-        self.correctAns = parseInt(questionList[qnum].correctAns);
-        self.theAnswerIs = questionList[qnum].answers[self.correctAns];
-        self.extraInfo = questionList[qnum].extraInfo;
-        self.yourAnswer = answerSelected;
+        var correctAns = parseInt(questionList[qnum].correctAns);
+        var theAnswerIs = questionList[qnum].answers[correctAns];
+        var extraInfo = questionList[qnum].extraInfo;
+        var yourAnswer = answerSelected;
 
         // *** Present the relevant information depending on whether the user answered correctly or not ***
         // *** Also increment stats for later ***
-        if (self.yourAnswer === self.theAnswerIs) {
+        if (yourAnswer === theAnswerIs) {
             $("#answerMessage").html("<p>CONGRATULATIONS, that is the correct answer!</p>");
             $("#answerGif").html("<img src='../TriviaGame/assets/images/Celebrate.gif'>");
             result = true;
-            console.log("Result: " + result);
+            // console.log("Result: " + result);
             numCorrectAns++;
         }
         else {
             $("#answerMessage").text("I'm sorry that is NOT the correct answer!");
             result = false;
-            console.log("Result: " + result);
+            // console.log("Result: " + result);
             numWrongAns++
         }
 
@@ -272,35 +266,31 @@ var TriviaGame = function () {
 
         // *** Display the Question Result Card with addition Did you Know, text ***
         $(".checkAnswerContainer").show();
-        $("#answerInfo").text(self.extraInfo);
+        $("#answerInfo").text(extraInfo);
 
         // *** invoke the 5 second timer, before taking the user to the next question ***
         var resultFiveSecondTimer = setTimeout(function() {
             self.nextQuestion (qnum, questionArr);    
-        }, 5000); 
+        }, 3000); 
     }
 
     // *** Function to set up the next question, or end game if all questions answered ***
     this.nextQuestion = function (qnum, questionList) {
 
         var self = this;
-
-        console.log ("Question Array Count: "+questionList.length);
-
         // *** Increment the question number
         qnum++
-        console.log("New Question Number: " + qnum);
+        // console.log("New Question Number: " + qnum);
+        // console.log ("Question Array Count: "+questionList.length);
 
-        console.log(typeof qnum);
-        console.log(typeof questionList.length);
-        if (qnum <= self.questionList.length) {
-            self.askAQuestion(qnum, self.questionList);
-            console.log ("Questions Answered: "+qnum+1);
-            console.log ("Total Questions: "+self.questionList.length);
+        if (qnum < questionList.length) {
+            self.askAQuestion(qnum, questionList);
+            // console.log ("Questions Answered: "+qnum+1);
+            // console.log ("Total Questions: "+questionList.length);
         }
         else {
-            console.log ("Questions Answered: "+qnum+1);
-            console.log ("Total Questions: "+self.questionList.length);
+            // console.log ("Questions Answered: "+qnum+1);
+            // console.log ("Total Questions: "+questionList.length);
             self.endGame()
         }
     }
@@ -315,11 +305,12 @@ var TriviaGame = function () {
         $(".questionNumber").hide();
         $("#question-answer-card").hide();
         $("#final-stats-card").show();
-        console.log ("endGame this: "+this);
+        // $(".restart-button").show();
+
         self.numCorrectAns = numCorrectAns;
         self.numWrongAns = numWrongAns;
         var totalAnswered = self.numCorrectAns + self.numWrongAns
-        self.percentCorrect = (self.numCorrectAns/totalAnswered)*100
+        self.percentCorrect = parseInt((self.numCorrectAns/totalAnswered)*100)
 
         console.log ("Correct: "+self.numCorrectAns);
         console.log ("Wrong: "+self.numWrongAns);
@@ -328,7 +319,14 @@ var TriviaGame = function () {
 
         $("#QuestionsAnswers").append(self.numCorrectAns+numWrongAns);
         $("#correctAnswers").append(self.numCorrectAns);
-        $("#percentCorrect").append(self.percentCorrect);
+        $("#percentCorrect").append(self.percentCorrect+"%");
+
+        // $(".restart-button").on("click", function () {
+
+            // self.startGame();
+            // game.startGame();
+
+        // });
     }
 }
 

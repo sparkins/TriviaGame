@@ -1,51 +1,77 @@
+html {
+    height: 100%;
+}
+
 body {
-    background-image: url(../images/soccerimage.png);
+    background-image: url(../images/soccerImage.png);
     background-repeat: no-repeat;
-    background-size: 65%;
     background-position: center;
+    display: flex;
+    height: 100%;
+    overflow: auto;
   }
 
- .jumbotron {
+.imageContainer {
+    /* display: flex; */
+    height: auto;
+    overflow: auto;
+}  
+
+.jumbotron {
+    margin-top: 2%;
     text-align: center;
     background-color: inherit;
     color: black;
     font-weight: bold;
     font-size: 42px !important;
     opacity: 0.9;
- }
+}
 
- .worldCupTrophy {
-    background-image: url(../images/WorldCupTrophy.png);
+#worldCupTitle {
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    background-color: aquamarine;
+    background-image: url(../images/);
+    background-repeat: no-repeat;
+    margin-left: 5%;
+    /* background-size: 10%; */
+} 
+
+#worldCupTrophy {
+    background-image: url(../images/soccerPitch.png);
     background-repeat: no-repeat;
     background-size: 10%;
- } 
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+} 
+
+#timer-card {
+    background-color: aquamarine;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+}
 
 #timer-text {
-     font-size: 10px !important;
- }
+     font-size: 10px;
+}
 
 #timer-title {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
 }
 
  #timer-display {
-     font-size: 12px;
+     font-size: 11px;
  }
-
-#timer-card {
-    background-color: aquamarine;
-    position: fixed;
-    bottom: 40%;
-    left: 20%
-    /* float: left; */
-}
 
 .start-button {
     background-color: blue;
     color: white;
     font-weight: bold;
-    margin-top: 25%;
+    margin-top: 30%;
 }
 
 .question-row {
@@ -57,8 +83,8 @@ body {
     border-style: solid;
     border-width: 1px;
     background-color: aquamarine;
-    opacity: 0.7;
-    margin-bottom: 3%;
+    opacity: 0.8;
+    margin-bottom: 2%;
 }
 
 .questionNumber {
@@ -75,7 +101,7 @@ body {
     background-color: blue;
     color: white;
     font-weight: bold;
-    margin: 5% !important;
+    margin: 5%;
 }
 
 .checkAnswerContainer {
@@ -85,14 +111,14 @@ body {
     background-color: beige;
     margin-left: 3%;
     margin-right: 3%;
-    /* display: flex; */
     height: auto;
     overflow: auto;
 }
 
 #question-answer-card {
+    margin-top: 5%;
     background-color: beige;
-    opacity: .7;
+    opacity: .9;
 }
 
 #answerMessage {
@@ -120,8 +146,21 @@ body {
 }
 
 #final-stats-card {
-    background-color: rgb(161, 161, 23);
-    opacity: .7;
+    margin-top: 20%;
+    background-color:  aquamarine;
+    opacity: .9;
     font-style: italic;
     font-weight: bold;
+    text-align: center;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    
+}
+
+.restart-button {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    margin-top: 40%;
 }
