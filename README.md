@@ -21,7 +21,7 @@ Assignment Instructions:
 * On the final screen, show the number of correct answer
 
 Go ahead! Click on the following link to preview the completed assignment.
-https://sparkins.github.io/trivia-game/
+https://sparkins.github.io/TriviaGame/
 
 Built With
 HTML5
