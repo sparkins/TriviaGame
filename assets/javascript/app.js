@@ -1,4 +1,6 @@
 var TriviaGame = function () {
+
+    var self = this;
     // *** Array of question objects ***
     var questionArr = [
         {
@@ -107,8 +109,8 @@ var TriviaGame = function () {
         time: 0,
 
         reset: function () {
-            gameTimer.time = 120;
-            $("#timer-display").text("2:00");
+            gameTimer.time = 60;
+            $("#timer-display").text("1:00");
         },
         start: function () {
             if (!clockRunning) {
@@ -121,11 +123,10 @@ var TriviaGame = function () {
             clockRunning = false;
         },
         countDown: function () {
-            var self = this;
             gameTimer.time--;
             var converted = gameTimer.timeConverter(gameTimer.time);
             $("#timer-display").text(converted);
-            if (gameTimer.time < 30 && gameTimer.time > 0) {
+            if (gameTimer.time < 10 && gameTimer.time > 0) {
                 $("#timer-display").css('color', 'Red').text(converted);    
             }
             if (gameTimer.time === 0) {
@@ -135,7 +136,7 @@ var TriviaGame = function () {
 
                 //  Alert the user that time is up.
                 alert("Time Up!");
-                self.endGame()
+                self.endGame();
             }
         },
         timeConverter: function (t) {
@@ -155,7 +156,6 @@ var TriviaGame = function () {
         }
     }
 
-
     // *** Function to present the start quiz screen and reset results ***
     this.startGame = function () {
 
@@ -174,7 +174,6 @@ var TriviaGame = function () {
         $(".checkAnswerContainer").hide();
         $("#question-answer-card").hide();
         $("#final-stats-card").hide();
-
 
         // *** Reset the game timer ***
         gameTimer.reset();
@@ -212,6 +211,7 @@ var TriviaGame = function () {
 
         // *** Display the question to the player ***
         $(".askQuestion").html(this.question);
+        $(".questionNumber").text("Question: "+this.questionNum);
 
         // *** Dynamically create and display the answers in the form of buttons *** 
         for (var numAnsw = 0; numAnsw < this.answers.length; numAnsw++) {
@@ -233,10 +233,10 @@ var TriviaGame = function () {
     }
 
     // ***Create a function to hide the answer buttons and provide your answer result ***
-    this.displayAnswer = function (qnum, questionList) {
+    this.displayAnswer = function (qnum, questionList, answerSelected) {
 
         var self = this;
-
+        console.log("displayAnswer this: "+this);
         // *** Pause the timer, while we present the answer to the user ***
         gameTimer.stop();
 
@@ -247,17 +247,14 @@ var TriviaGame = function () {
         $("#question-answer-card").show();
 
         // *** assign information to the variables for displaying on the screen ***
-        this.correctAns = parseInt(questionList[qnum].correctAns);
-        this.theAnswerIs = questionList[qnum].answers[this.correctAns];
-        this.extraInfo = questionList[qnum].extraInfo;
-        this.yourAnswer = answerSelected;
-
-        console.log(this.yourAnswer + " " + typeof this.yourAnswer);
-        console.log(this.theAnswerIs + " " + typeof this.theAnswerIs);
+        self.correctAns = parseInt(questionList[qnum].correctAns);
+        self.theAnswerIs = questionList[qnum].answers[self.correctAns];
+        self.extraInfo = questionList[qnum].extraInfo;
+        self.yourAnswer = answerSelected;
 
         // *** Present the relevant information depending on whether the user answered correctly or not ***
         // *** Also increment stats for later ***
-        if (this.yourAnswer === this.theAnswerIs) {
+        if (self.yourAnswer === self.theAnswerIs) {
             $("#answerMessage").html("<p>CONGRATULATIONS, that is the correct answer!</p>");
             $("#answerGif").html("<img src='../TriviaGame/assets/images/Celebrate.gif'>");
             result = true;
@@ -275,7 +272,7 @@ var TriviaGame = function () {
 
         // *** Display the Question Result Card with addition Did you Know, text ***
         $(".checkAnswerContainer").show();
-        $("#answerInfo").text(this.extraInfo);
+        $("#answerInfo").text(self.extraInfo);
 
         // *** invoke the 5 second timer, before taking the user to the next question ***
         var resultFiveSecondTimer = setTimeout(function() {
@@ -294,43 +291,44 @@ var TriviaGame = function () {
         qnum++
         console.log("New Question Number: " + qnum);
 
-        // *** invoke function askAQuestion, to present the next question
-        self.askAQuestion(qnum, questionArr)
-
-        // console.log(typeof qnum);
-        // console.log(typeof questionList.length);
-        // if (qnum <= this.questionList.length) {
-        //     self.askAQuestion(qnum, this.questionList);
-        //     console.log ("Questions Answered: "+qnum+1);
-        //     console.log ("Total Questions: "+this.questionList.length);
-        // }
-        // else {
-        //     console.log ("Questions Answered: "+qnum+1);
-        //     console.log ("Total Questions: "+this.questionList.length);
-        //     self.endGame()
+        console.log(typeof qnum);
+        console.log(typeof questionList.length);
+        if (qnum <= self.questionList.length) {
+            self.askAQuestion(qnum, self.questionList);
+            console.log ("Questions Answered: "+qnum+1);
+            console.log ("Total Questions: "+self.questionList.length);
+        }
+        else {
+            console.log ("Questions Answered: "+qnum+1);
+            console.log ("Total Questions: "+self.questionList.length);
+            self.endGame()
+        }
     }
 
     this.endGame = function () {
+
+        var self = this;
+
         $(".start-button").hide();
         $(".answer-button").hide();
         $(".askQuestion").hide();
         $(".questionNumber").hide();
         $("#question-answer-card").hide();
         $("#final-stats-card").show();
+        console.log ("endGame this: "+this);
+        self.numCorrectAns = numCorrectAns;
+        self.numWrongAns = numWrongAns;
+        var totalAnswered = self.numCorrectAns + self.numWrongAns
+        self.percentCorrect = (self.numCorrectAns/totalAnswered)*100
 
-        this.numCorrectAns = numCorrectAns;
-        this.numWrongAns = numWrongAns;
-        var totalAnswered = this.numCorrectAns + this.numWrongAns
-        this.percentCorrect = (this.numCorrectAns/totalAnswered)*100
+        console.log ("Correct: "+self.numCorrectAns);
+        console.log ("Wrong: "+self.numWrongAns);
+        console.log ("Total: "+self.totalAnswered);
+        console.log ("Percent: "+self.percentCorrect);
 
-        console.log ("Correct: "+this.numCorrectAns);
-        console.log ("Wrong: "+this.numWrongAns);
-        console.log ("Total: "+this.totalAnswered);
-        console.log ("Percent: "+this.percentCorrect);
-
-        $("#QuestionsAnswers").append(this.numCorrectAns+numWrongAns);
-        $("#correctAnswers").append(this.numCorrectAns);
-        $("#percentCorrect").append(this.percentCorrect);
+        $("#QuestionsAnswers").append(self.numCorrectAns+numWrongAns);
+        $("#correctAnswers").append(self.numCorrectAns);
+        $("#percentCorrect").append(self.percentCorrect);
     }
 }
 
