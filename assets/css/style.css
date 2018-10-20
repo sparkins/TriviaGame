@@ -12,6 +12,12 @@ body {
     font-weight: bold;
     font-size: 42px !important;
     opacity: 0.9;
+ }
+
+ .worldCupTrophy {
+    background-image: url(../images/WorldCupTrophy.png);
+    background-repeat: no-repeat;
+    background-size: 10%;
  } 
 
 #timer-text {
@@ -51,7 +57,7 @@ body {
     border-style: solid;
     border-width: 1px;
     background-color: aquamarine;
-    opacity: 0.9;
+    opacity: 0.7;
     margin-bottom: 3%;
 }
 
@@ -86,7 +92,7 @@ body {
 
 #question-answer-card {
     background-color: beige;
-    opacity: .7;
+    opacity: .5;
 }
 
 #answerMessage {
@@ -111,4 +117,11 @@ body {
 
 #count-down {
     font-style: italic;
+}
+
+#final-stats-card {
+    background-color: rgb(161, 161, 23);
+    opacity: .7;
+    font-style: italic;
+    font-weight: bold;
 }
