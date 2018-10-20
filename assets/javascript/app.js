@@ -4,73 +4,85 @@ var TriviaGame = function () {
             questionNumber: 1,
             question: "What year was the first World Cup held?",
             answers: ["1926", "1930", "1934", "1932"],
-            correctAns: 1
+            correctAns: 1,
+            extraInfo: "Only 13 countries participated, only 4 from outside the Americas, due to the difficulties of travelling."
         },
         {
             questionNumber: 2,
             question: "Where was the first World Cup held?",
             answers: ["England", "United States of America", "Uruguay", "Italy"],
-            correctAns: 2
+            correctAns: 2,
+            extraInfo: "Uruguay were chosen as the host nation, as they had successfully retained their football title at the 1928 Summer Olympics!"
         },
         {
             questionNumber: 3,
             question: "Who is the all time leading scorer?",
             answers: ["Pele", "Diego Maradonna", "Miroslav Klose", "Ronaldo"],
-            correctAns: 2
+            correctAns: 2,
+            extraInfo: "Klose scored 16 goals in 24 games, while featuring in 4 World Cups, from 2002 to 2014"
         },
         {
             questionNumber: 4,
             question: "Which nation holds the record for the most World Cups?",
             answers: ["Brazil", "Italy", "Germany", "France"],
-            correctAns: 0
+            correctAns: 0,
+            extraInfo: "Did you know?: "
         },
         {
             questionNumber: 5,
             question: "Who is the only player to score a hat-trick in a World Cup final?",
             answers: ["Jurgen Klinsmann", "Pele", "Geoff Hurst", "Paolo Rossi"],
-            correctAns: 2
+            correctAns: 2,
+            extraInfo: "Did you know?: "
         },
         {
             questionNumber: 6,
             question: "Which of these teams has NOT won the World Cup on home soil?",
             answers: ["Brazil", "Italy", "England", "Uruguay"],
-            correctAns: 0
+            correctAns: 0,
+            extraInfo: "Did you know?: "
         },
         {
             questionNumber: 7,
             question: "Which nation has played in every world cup?",
             answers: ["England", "Brazil", "Argentina", "Italy"],
-            correctAns: 1
+            correctAns: 1,
+            extraInfo: "Did you know?: "
         },
         {
             questionNumber: 8,
             question: "Which team scored 27 goals in one World Cup?",
             answers: ["Argentina", "Germany", "Brazil", "Hungary"],
-            correctAns: 3
+            correctAns: 3,
+            extraInfo: "Did you know?: "
         },
         {
             questionNumber: 9,
             question: "Who is this pictured to the right?",
             answers: ["", "", "", ""],
-            correctAns: 0
+            correctAns: 0,
+            extraInfo: "Did you know?: "
         },
         {
             questionNumber: 10,
             question: "Which team has scored the fastest world Cup goal?",
             answers: ["England", "Brazil", "Netherlands", "Turkey"],
-            correctAns: 3
+            correctAns: 3,
+            extraInfo: "Did you know?: "
         },
         {
             questionNumber: 11,
             question: "?",
             answers: ["", "", "", ""],
-            correctAns: 0
+            correctAns: 0,
+            extraInfo: "Did you know?: "
         },
         {
             questionNumber: 12,
             question: "This is Question 12?",
             answers: ["A", "B", "C", "D"],
-            correctAns: 0
+            correctAns: 0,
+            extraInfo: "Did you know?: "
         }
     ]
     var numCorrectAns = 0;
@@ -90,7 +102,7 @@ var TriviaGame = function () {
         time: 0,
 
         reset: function () {
-            gameTimer.time = 0;
+            gameTimer.time = 120;
             $("#timer-display").text("2:00");
         },
         start: function () {
@@ -107,6 +119,14 @@ var TriviaGame = function () {
             gameTimer.time--;
             var converted = gameTimer.timeConverter(gameTimer.time);
             $("#timer-display").text(converted);
+            if (gameTimer.time === 0) {
+
+                //  ...run the stop function.
+                gameTimer.stop();
+
+                //  Alert the user that time is up.
+                alert("Time Up!");
+            }
         },
         timeConverter: function (t) {
             var minutes = Math.floor(t / 60);
@@ -139,8 +159,10 @@ var TriviaGame = function () {
         $(".askQuestion").hide();
         $(".questionNumber").hide();
         $(".checkAnswerContainer").hide();
+        $("#question-answer-card").hide();
 
         gameTimer.reset();
+        console.log("Timer after reset: " + gameTimer.t);
 
         // console.log("Correct Answers: " + this.numCorrectAns);
         // console.log("Wrong Answers: " + this.numWrongAns);
@@ -165,10 +187,12 @@ var TriviaGame = function () {
         $(".answer-button").show();
         $(".askQuestion").show();
         $(".questionNumber").show();
-        $(".checkAnswerContainer").hide();
+        $("#question-answer-card").hide();
         $("#button-row").empty();
 
         gameTimer.start();
+        console.log("Timer after start: " + gameTimer.t);
+
 
         // *** the load variables with the details from the current question ***
         this.questionNum = questionList[qnum].questionNumber;
@@ -209,8 +233,13 @@ var TriviaGame = function () {
         var self = this;
 
         gameTimer.stop();
-        setTimeout(self.nextQuestion(qnum, questionArr), 1000 * 3);
 
+        $(".answer-button").hide();
+        $(".askQuestion").hide();
+        $(".questionNumber").hide();
+        $("#question-answer-card").show();
+
+        self.fiveSecondTimer();
 
         this.correctAns = parseInt(questionList[qnum].correctAns);
         this.theAnswerIs = questionList[qnum].answers[this.correctAns];
@@ -219,6 +248,8 @@ var TriviaGame = function () {
 
         console.log(this.yourAnswer + " " + typeof this.yourAnswer);
         console.log(this.theAnswerIs + " " + typeof this.theAnswerIs);
+
+        $("#count-down").text(self.counter);
 
         if (this.yourAnswer === this.theAnswerIs) {
             $("#answerMessage").html("<p>CONGRATULATIONS, that is the correct answer!</p>");
@@ -239,8 +270,7 @@ var TriviaGame = function () {
         $(".answer-button").hide();
         $(".checkAnswerContainer").show();
 
-        // $("#answerInfo").text(this.extraInfo);
-        $("#answerInfo").text("Extra Info PlaceHolder");
+        $("#answerInfo").text(this.extraInfo);
     }
 
     this.nextQuestion = function (qnum, questionList) {
@@ -260,15 +290,29 @@ var TriviaGame = function () {
         //     console.log ("Questions Answered: "+qnum+1);
         //     console.log ("Total Questions: "+this.questionList.length);
         //     self.endGame()
-        // }
     }
+
+    this.fiveSecondTimer = function () {
+        var counter = 5;
+        var intervalId = setInterval(countDown, 1000);
+        var countDown = function () {
+            counter--;
+            $("#count-down").append("Next question in " + counter + " seconds!");
+            if (counter === 0) {
+                clearInterval(intervalId);
+                this.nextQuestion();
+            }
+        }
+
+    }
+
     this.endGame = function () {
         $(".start-button").hide();
         $(".answer-button").hide();
         $(".askQuestion").hide();
         $(".questionNumber").hide();
         $(".checkAnswerContainer").hide();
-    }    
+    }
 }
 
 $(document).ready(function () {

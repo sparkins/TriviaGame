@@ -21,7 +21,6 @@ body {
 #timer-title {
     font-size: 12px;
     font-weight: bold;
-
 }
 
  #timer-display {
@@ -85,8 +84,13 @@ body {
     overflow: auto;
 }
 
-#answerMessage {
+#question-answer-card {
+    background-color: beige;
+    opacity: .7;
+}
 
+#answerMessage {
+    text-align: center;
 }
 
 #answerInfo {
@@ -94,8 +98,17 @@ body {
 }
 
 #answerGif {
-    background-image: url(../images/Celebrate.Gif);
+    /* background-image: url(../images/Celebrate.Gif); */
     background-repeat: no-repeat;
-    background-size: 65%;
+    /* background-size: 65%; */
     background-position: center;
+}
+
+.answerCounter {
+    font-style: italic;
+    font-weight: bold;
+}
+
+#count-down {
+    font-style: italic;
 }

@@ -47,27 +47,30 @@
             </div>
             <div class="col-md-4"></div>
         </div>
-        <div class="container checkAnswerContainer">
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8" id="answerMessage"></div>
-                <div class="col-md-2"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8" id="answerInfo"></div>
-                <div class="col-md-2"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8" id="answerGif"></div>
-                <div class="col-md-2"></div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card" id="question-answer-card">
+                    <img class="card-img-top" id="answerGif">
+                    <div class="card-body">
+                        <h5 class="card-title" id="answerMessage"></h5>
+                        <p class="card-text" style="font-weight: bold">Did You Know?</p>
+                        <p id="answerInfo"></p>
+                    </div>
+                    <div class="card-footer answerCounter">
+                        <small class="text-muted">Next question in 
+                            <span id="count-down"></span>
+                            <span > seconds</span>
+                        </small>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="result-row">
             <div class="col-md-2">
                 <div class="card mb-3" id="timer-card">
-                    <div class="card-header" id="timer-title">Time Remaining: 
+                    <div class="card-header" id="timer-title">Time Remaining:
                         <span class="card-header" id="timer-display"></span>
                     </div>
                     <div class="card-body">
