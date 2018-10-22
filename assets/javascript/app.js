@@ -95,7 +95,6 @@ var TriviaGame = function () {
     var numTimesUp = 0;
     var answerSelected = "";
     var qnum = 0;
-    // var result = null;
 
     // *** game Timer variables, objects and functions ***
     var intervalId;
@@ -256,19 +255,14 @@ var TriviaGame = function () {
         if (yourAnswer === theAnswerIs) {
             $("#answerMessage").html("<p>CONGRATULATIONS, that is the correct answer!</p>");
             // $("#answerGif").html("<img src='../TriviaGame/assets/images/Celebrate.gif'>");
-            // result = true;
-            // console.log("Result: " + result);
             numCorrectAns++;
         }
         else if (yourAnswer === "Times Up") {
             $("#answerMessage").text("I'm sorry you didn't answer the question in time!");
-            // result = false;
             numTimesUp++
         }
         else {
             $("#answerMessage").text("I'm sorry that is NOT the correct answer!");
-            // result = false;
-            // console.log("Result: " + result);
             numWrongAns++
         }
 
@@ -335,7 +329,6 @@ var TriviaGame = function () {
         $(".restart-button").on("click", function () {
 
             self.startGame();
-            // game.startGame();
 
         });
     }
