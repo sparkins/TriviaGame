@@ -328,7 +328,7 @@ var TriviaGame = function () {
         console.log ("Total: "+self.totalAnswered);
         console.log ("Percent: "+self.percentCorrect);
 
-        $("#QuestionsAnswers").append(self.numCorrectAns+numWrongAns);
+        $("#QuestionsAnswers").append(totalAnswered+" out of "+(parseInt(totalAnswered)+parseInt(self.numTimesUp)));
         $("#correctAnswers").append(self.numCorrectAns);
         $("#percentCorrect").append(self.percentCorrect+"%");
 
