@@ -95,7 +95,7 @@ var TriviaGame = function () {
     var numTimesUp = 0;
     var answerSelected = "";
     var qnum = 0;
-    var result = null;
+    // var result = null;
 
     // *** game Timer variables, objects and functions ***
     var intervalId;
@@ -162,6 +162,7 @@ var TriviaGame = function () {
         this.numWrongAns = 0;
         this.totalAns = 0;
         this.percentCorrect = 0;
+        qnum = 0;
 
         // *** Configure which elements should appear on the opening screen ***
         $(".answer-button").hide();
@@ -255,18 +256,18 @@ var TriviaGame = function () {
         if (yourAnswer === theAnswerIs) {
             $("#answerMessage").html("<p>CONGRATULATIONS, that is the correct answer!</p>");
             // $("#answerGif").html("<img src='../TriviaGame/assets/images/Celebrate.gif'>");
-            result = true;
+            // result = true;
             // console.log("Result: " + result);
             numCorrectAns++;
         }
         else if (yourAnswer === "Times Up") {
             $("#answerMessage").text("I'm sorry you didn't answer the question in time!");
-            result = false;
+            // result = false;
             numTimesUp++
         }
         else {
             $("#answerMessage").text("I'm sorry that is NOT the correct answer!");
-            result = false;
+            // result = false;
             // console.log("Result: " + result);
             numWrongAns++
         }
@@ -314,7 +315,7 @@ var TriviaGame = function () {
         $(".questionNumber").hide();
         $("#question-answer-card").hide();
         $("#final-stats-card").show();
-        // $(".restart-button").show();
+        $(".restart-button").show();
 
         self.numCorrectAns = numCorrectAns;
         self.numWrongAns = numWrongAns;
@@ -331,12 +332,12 @@ var TriviaGame = function () {
         $("#correctAnswers").append(self.numCorrectAns);
         $("#percentCorrect").append(self.percentCorrect+"%");
 
-        // $(".restart-button").on("click", function () {
+        $(".restart-button").on("click", function () {
 
-            // self.startGame();
+            self.startGame();
             // game.startGame();
 
-        // });
+        });
     }
 }
 
